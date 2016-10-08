@@ -62,7 +62,7 @@ $fluidBlocks = $requester->getValue('fluid');
   
   </head>
   <body>
-    <div class="row">
+    <!--<div class="row">
       <nav class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
@@ -85,7 +85,7 @@ $fluidBlocks = $requester->getValue('fluid');
           </div>
         </div>
       </nav>
-    </div>
+    </div>-->
     
     <div class="container">
       <div class="col-md-6 col-sm-12">
