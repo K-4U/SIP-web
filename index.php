@@ -9,6 +9,7 @@ $requester->addValueToRequest('uptime');
 $requester->addValueToRequest('daynight');
 $requester->addValueToRequest('players', 'latestdeath');
 $requester->addValueToRequest('deaths');
+$requester->addValueToRequest('tps');
 
 
 
@@ -140,6 +141,14 @@ $fluidBlocks = $requester->getValue('fluid');
               <tr>
                 <th>Uptime</th>
                 <td><?= date("H:i:s", floor($requester->getValue('uptime') / 1000)) ?></td>
+              </tr>
+              <tr>
+                <th>TPS (overworld)</th>
+                <td><?= $requester->getValue('tps')['0']['tps'] ?></td>
+              </tr>
+              <tr>
+                <th>TPS (nether)</th>
+                <td><?= $requester->getValue('tps')['-1']['tps'] ?></td>
               </tr>
             </tbody>
           </table>
