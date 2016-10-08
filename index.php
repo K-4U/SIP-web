@@ -12,7 +12,6 @@ $requester->addValueToRequest('deaths');
 $requester->addValueToRequest('tps');
 
 
-
 function blockRequest($x, $y, $z, $dim, $side) {
   
   return
@@ -24,6 +23,7 @@ function blockRequest($x, $y, $z, $dim, $side) {
       'side'      => $side,
     ];
 }
+
 $requester->addValueToRequest("energy", blockRequest(-44, 63, -23, 0, "up"));
 $requester->addValueToRequest("energy", blockRequest(-46, 63, -23, 0, "up"));
 $requester->addValueToRequest("energy", blockRequest(-48, 63, -23, 0, "up"));
@@ -157,7 +157,7 @@ $fluidBlocks = $requester->getValue('fluid');
       
       
       <div class="col-md-12">
-        <div class="panel panel-warning">
+        <div class="panel panel-danger">
           <div class="panel-heading">
             <div class="panel-title">
               Blocks - Energy
@@ -173,19 +173,22 @@ $fluidBlocks = $requester->getValue('fluid');
             </thead>
             <tbody>
               <?php
-              foreach($energyBlocks as $energyBlock){
+              foreach ($energyBlocks as $energyBlock) {
                 echo "<tr>";
                 echo "<td style='width:10%'>" . $energyBlock['localized-name'] . "</td>";
                 echo "<td style='width:10%'>" . $energyBlock['type'] . "</td>";
                 echo "<td>";
                 $perc = ($energyBlock['stored'] / $energyBlock['capacity']) * 100;
                 ?>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $perc ?>" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: <?= $perc ?>%">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger"
+                       role="progressbar" aria-valuenow="<?= $perc ?>"
+                       aria-valuemin="0" aria-valuemax="100"
+                       style="min-width: 2em; width: <?= $perc ?>%">
                     <?= $energyBlock['stored'] ?>/<?= $energyBlock['capacity'] ?>
                   </div>
                 </div>
-              <?php
+                <?php
                 echo "</td>";
                 echo "</tr>";
               }
@@ -194,7 +197,7 @@ $fluidBlocks = $requester->getValue('fluid');
           </table>
         </div>
       </div>
-  
+      
       <div class="col-md-12">
         <div class="panel panel-warning">
           <div class="panel-heading">
@@ -212,7 +215,7 @@ $fluidBlocks = $requester->getValue('fluid');
             </thead>
             <tbody>
               <?php
-              foreach($fluidBlocks as $fluidBlock){
+              foreach ($fluidBlocks as $fluidBlock) {
                 echo "<tr>";
                 echo "<td style='width:10%'>" . $fluidBlock['localized-name'] . "</td>";
                 echo "<td style='width:10%'>" . $fluidBlock['fluid'] . "</td>";
@@ -220,7 +223,10 @@ $fluidBlocks = $requester->getValue('fluid');
                 $perc = ($fluidBlock['stored'] / $fluidBlock['capacity']) * 100;
                 ?>
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="<?= $perc ?>" aria-valuemin="0" aria-valuemax="100" style="min-width: 5em; width: <?= $perc ?>%">
+                  <div class="progress-bar progress-bar-striped"
+                       role="progressbar" aria-valuenow="<?= $perc ?>"
+                       aria-valuemin="0" aria-valuemax="100"
+                       style="min-width: 5em; width: <?= $perc ?>%">
                     <?= $fluidBlock['stored'] ?>/<?= $fluidBlock['capacity'] ?>
                   </div>
                 </div>
