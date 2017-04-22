@@ -23,15 +23,17 @@ function blockRequest($x, $y, $z, $dim, $side) {
             'side'      => $side,
         ];
 }
-
+/*
 $requester->addValueToRequest("energy", blockRequest(-44, 63, -23, 0, "up"));
 $requester->addValueToRequest("energy", blockRequest(-46, 63, -23, 0, "up"));
 $requester->addValueToRequest("energy", blockRequest(-48, 63, -23, 0, "up"));
 
 $requester->addValueToRequest("fluid", blockRequest(-44, 64, -20, 0, "up"));
 $requester->addValueToRequest("fluid", blockRequest(-46, 64, -20, 0, "up"));
-
+*/
 $requester->addValueToRequest("entities", 0); //Just the overworld please
+$requester->addValueToRequest("tiles", 0); //Just the overworld please
+$requester->addValueToRequest("tilelist", ["dimensionid"=> 0, "name"=> "net.minecraft.tileentity.TileEntityChest"]);
 
 $requester->doRequest();
 
@@ -41,8 +43,13 @@ $deaths = $requester->getValue('deaths');
 $energyBlocks = $requester->getValue('energy');
 $fluidBlocks = $requester->getValue('fluid');
 $entities = $requester->getValue('entities');
+$tiles = $requester->getValue('tiles');
 $versions = $requester->getValue('versions');
+$tileList = $requester->getValue('tilelist');
 
+function locationToString($location){
+    return "X: " . $location['x'] . " Y: " . $location['y'] . " Z: " . $location['z'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -91,7 +98,6 @@ $versions = $requester->getValue('versions');
             </div>
           </nav>
         </div>-->
-        
         <div class="container">
             <div class="col-md-6 col-sm-12">
                 <div class="panel panel-info">
@@ -194,7 +200,7 @@ $versions = $requester->getValue('versions');
                     </table>
                 </div>
             </div>
-            
+            <?php if($energyBlocks != null){ ?>
             <div class="col-md-12">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
@@ -236,7 +242,8 @@ $versions = $requester->getValue('versions');
                     </table>
                 </div>
             </div>
-            
+            <?php } ?>
+            <?php if($fluidBlocks != null){ ?>
             <div class="col-md-12">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
@@ -278,6 +285,7 @@ $versions = $requester->getValue('versions');
                     </table>
                 </div>
             </div>
+        <?php } ?>
             
             <div class="col-md-12">
                 <div class="panel panel-danger">
@@ -299,6 +307,62 @@ $versions = $requester->getValue('versions');
                                 echo "<tr>";
                                 echo "<td style='width:80%'>" . $entity . "</td>";
                                 echo "<td>" . $amount . "</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Tile Entities
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($tiles as $entity => $amount) {
+                                echo "<tr>";
+                                echo "<td style='width:80%'>" . $entity . "</td>";
+                                echo "<td>" . $amount . "</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <div class="col-md-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Chests
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($tileList as $entity) {
+                                echo "<tr>";
+                                echo "<td style='width:80%'>" . $entity['name'] . "</td>";
+                                echo "<td>" . locationToString($entity['location']) . "</td>";
                                 echo "</tr>";
                             }
                             ?>
