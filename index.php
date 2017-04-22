@@ -30,7 +30,8 @@ $requester->addValueToRequest("energy", blockRequest(-48, 63, -23, 0, "up"));
 
 $requester->addValueToRequest("fluid", blockRequest(-44, 64, -20, 0, "up"));
 $requester->addValueToRequest("fluid", blockRequest(-46, 64, -20, 0, "up"));
-//$requester->addValueToRequest("fluid", blockRequest(-48, 64, -20, 0, "up"));
+
+$requester->addValueToRequest("entities", 0); //Just the overworld please
 
 $requester->doRequest();
 
@@ -39,7 +40,7 @@ $deaths = $requester->getValue('deaths');
 
 $energyBlocks = $requester->getValue('energy');
 $fluidBlocks = $requester->getValue('fluid');
-
+$entities = $requester->getValue('entities');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -240,6 +241,33 @@ $fluidBlocks = $requester->getValue('fluid');
         </div>
       </div>
     
+      <div class="col-md-12">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <div class="panel-title">
+                Entities
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach ($entities as $entity => $amount) {
+                echo "<tr>";
+                echo "<td style='width:80%'>" . $entity . "</td>";
+                echo "<td>" . $amount . "</td>";
+                echo "</tr>";
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </body>
 </html>

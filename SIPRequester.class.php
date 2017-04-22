@@ -54,7 +54,7 @@ class SIPRequester {
    */
   public function addValueToRequest($key, $arguments = NULL) {
     
-    if ($arguments == NULL) {
+    if ($arguments === NULL) {
       $this->valuesToRequest[] = $key;
     }
     else {
